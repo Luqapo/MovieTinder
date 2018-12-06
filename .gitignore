@@ -2,6 +2,7 @@
 
 # dependencies
 /node_modules
+/bak-end/node_modules
 /.pnp
 .pnp.js
 
