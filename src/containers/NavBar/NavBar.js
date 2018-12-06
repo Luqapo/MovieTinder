@@ -15,12 +15,20 @@ import Add from '@material-ui/icons/Add';
 import MoreIcon from '@material-ui/icons/MoreVert';
 
 import { styles } from './NavBarStyles';
+import LoginModal from '../../components/LoginModal/LoginModal';
 
 class NavBar extends React.Component {
   state = {
     anchorEl: null,
     mobileMoreAnchorEl: null,
+    schowLog: false
   };
+
+  handleLogin = () => {
+    this.setState({
+        schowLog: this.state.schowLog ? false : true
+    })
+}
 
   handleProfileMenuOpen = event => {
     this.setState({ anchorEl: event.currentTarget });
@@ -53,7 +61,7 @@ class NavBar extends React.Component {
         open={isMenuOpen}
         onClose={this.handleMenuClose}
       >
-        <MenuItem onClick={this.handleMenuClose}>Profile</MenuItem>
+        <MenuItem onClick={this.handleLogin}>Login</MenuItem>
         <MenuItem onClick={this.handleMenuClose}>My account</MenuItem>
       </Menu>
     );
@@ -97,6 +105,11 @@ class NavBar extends React.Component {
               Movie Tinder
             </Typography>
             <div className={classes.grow} />
+            { this.state.schowLog ? <LoginModal 
+                                                        handleLogOff={this.handleLogOff} 
+                                                        show={this.state.schowLog} 
+                                                        showHandle={this.handleLogin}/>
+                                                         : null}
             <div className={classes.sectionDesktop}>
               <IconButton color="inherit">
                 <Badge badgeContent={0} color="secondary">
