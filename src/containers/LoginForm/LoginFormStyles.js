@@ -16,5 +16,12 @@ export const styles = theme => ({
         width: '100%',
         display: 'flex',
         justifyContent: 'center',
+    },
+    formCenter: {
+      width: '100%',
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'center',
+      margin: theme.spacing.unit,
     }
   });

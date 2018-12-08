@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import { withStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
 
-import * as actions from '../../store/actions/auth';
 import { styles } from './LoginModalStyles';
 import LoginForm from '../../containers/LoginForm/LoginForm';
 
@@ -29,12 +28,4 @@ const mapStateToProps = state => {
     };
 };
 
-const mapDispatchToProps = dispatch => {
-        return {
-            onAuth: (login, password) => dispatch ( actions.auth ( login, password )),
-            logOff: () => dispatch ( actions.logOff()),
-            addUser: (login, password, password2, email) => dispatch ( actions.addUser(login, password, password2, email))
-        }
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)((LoginModal)));
+export default connect(mapStateToProps)(withStyles(styles)((LoginModal)));

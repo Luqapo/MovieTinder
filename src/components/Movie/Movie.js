@@ -16,6 +16,12 @@ const Movie = props => {
                 <img src="https://cdn3.movieweb.com/i/article/bNWjlxGFZ7Dlx8GV7F1sTvvCzctzVu/738:50/Star-Wars-9-Rumors-Traitor-Twist.jpg" 
                      alt="Star Wars" 
                      className={classes.img}/>
+                <h5>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+                     incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, 
+                     quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo 
+                     consequat. 
+                </h5>
             </div>
         </div>
     )

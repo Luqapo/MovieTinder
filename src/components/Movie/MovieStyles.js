@@ -5,6 +5,7 @@ export const styles = theme => ({
     movie: {
         width: '100%',
         display: 'flex',
+        flexDirection: 'column',
     },
     img: {
         width: '100%'

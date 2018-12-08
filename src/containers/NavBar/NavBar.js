@@ -25,9 +25,8 @@ class NavBar extends React.Component {
   };
 
   handleLogin = () => {
-    this.setState({
-        schowLog: this.state.schowLog ? false : true
-    })
+    this.setState({ schowLog: this.state.schowLog ? false : true });
+    this.handleMenuClose();
 }
 
   handleProfileMenuOpen = event => {

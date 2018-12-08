@@ -28,7 +28,7 @@ class LoginForm extends Component{
 
     }
 
-    handleAdd = () => {
+    handleAddUser = () => {
         this.setState({
             addUser: this.state.addUser ? false : true
         })
@@ -64,11 +64,11 @@ class LoginForm extends Component{
         ];
         return (
             <div className={classes.paper}>
-                <form onSubmit={this.submitHandler}>
+                <form onSubmit={this.submitHandler} className={classes.formCenter}>
                     <Input name="login" 
                            onChange={this.handleChange} 
                            placeholder="Login"
-                                           required/>
+                           required/>
                     <Input name="password" 
                            onChange={this.handleChange} 
                            type="password" 
@@ -81,7 +81,7 @@ class LoginForm extends Component{
                 </form>
                 {this.state.addUser ? null : 
                     <div className={classes.buttonCenter}>
-                        <Button onClick={this.handleAdd}>Załóż konto</Button>
+                        <Button onClick={this.handleAddUser}>Załóż konto</Button>
                     </div>}
                 <div className={classes.buttonCenter}>
                     <Button onClick={this.props.showHandle}>Anuluj</Button>

@@ -2,6 +2,7 @@ export const styles = theme => ({
     root: {
         width: '100%',
         minHeight: '85vh',
+        margin: '0',
         ...theme.mixins.gutters(),
         paddingTop: theme.spacing.unit * 2,
         paddingBottom: theme.spacing.unit * 2,
@@ -14,6 +15,7 @@ export const styles = theme => ({
         width: '100%',
         display: 'flex',
         flexWrap: 'wrap',
+        margin: '0',
         [theme.breakpoints.up('sm')]: {
             width: '80%',
             margin: '0 auto'
