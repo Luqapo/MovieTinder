@@ -39,7 +39,7 @@ class LoginForm extends Component{
         if (!this.state.addUser){
         this.props.onAuth(this.state.login, this.state.password);
         } else {
-            this.props.addUser(this.state.login, this.state.password, this.state.password2, this.state.email);
+            this.props.addUser(this.state.login, this.state.password, this.state.email);
             this.setState({
                 addUser: false
             });
@@ -101,7 +101,7 @@ const mapDispatchToProps = dispatch => {
         return {
             onAuth: (login, password) => dispatch ( actions.auth ( login, password )),
             logOff: () => dispatch ( actions.logOff()),
-            addUser: (login, password, password2, email) => dispatch ( actions.addUser(login, password, password2, email))
+            addUser: (login, password, email) => dispatch ( actions.addUser(login, password, email))
         }
 };
 

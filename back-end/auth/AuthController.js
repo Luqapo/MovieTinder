@@ -3,6 +3,7 @@ const bodyParser = require('body-parser');
 const bcrypt = require('bcryptjs');
 
 const User = require('../models/User');
+const CreateUserSchema = require('./crateUserSchema');
 
 const router = express.Router();
 router.use(bodyParser.urlencoded({
@@ -13,37 +14,22 @@ router.use(bodyParser.json());
 // Api endpoint for register new user
 
 router.post('/register', (req, res) => {
-    let error = '';
-    if (!req.body.login) {
-        error = 'Login is required!';
-    }
-    if (!req.body.password) {
-        error = 'Password is required!';
-    }
-    if (!req.body.email) {
-        error = 'Email is required!';
-    } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(req.body.email)) {
-        error = 'Invalid email addres';
-    }
-    if (!error) {
-        const hashedPassword = bcrypt.hashSync(req.body.password, 8);
+        CreateUserSchema.validate(req.body, {abortEarly: false})
+        .then(validatedUser => {
+            const hashedPassword = bcrypt.hashSync(req.body.password, 8);
+            validatedUser.password = hashedPassword;
 
-        User.create({
-            login: req.body.login,
-            password: hashedPassword,
-            email: req.body.email
-        }, (err, user) => {
-            if (err) return res.status(500).send('There was problem registering the user.')
-
-            res.status(200).send({
-                auth: true
+            User.create(validatedUser, (err, user) => {
+                if (err) res.status(500).send('There was problem registering the user.')
+                res.status(200).send({ auth: true });
             });
-        });
-    } else {
-        res.status(400).send({
-            message: error
-        });
-    }
+        })
+        .catch(validationError => {
+            const errorMessage = validationError.details.map(d => d.message);
+            res.status(400).send(errorMessage);
+        })
+        
+    
 });
 
 // Api endpoint for login user

@@ -13,7 +13,7 @@ router.route('/movie')
         CrateMovieSchema.validate(req.body, {abortEarly: false})
             .then(validatedMovie => {
                 Movie.create(validatedMovie, (err, movie) => {
-                    if (err) return res.status(500).send('There was a problem crating movie.')
+                    if(err) res.status(500).send('There was a problem crating movie.')
                     res.status(200).send( 'Movie created' );
                 });
             })

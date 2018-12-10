@@ -27,8 +27,8 @@ export const logOff = () => {
     };
 };
 
-export const addUser = (login, password, password2, email) => {
-    if (login.length > 5 && password.length > 5 && password === password2 && email.length > 5) {
+export const addUser = (login, password, email) => {
+
         return dispatch => {
             dispatch(authStart());
             fetch(`${url}/api/auth/register`, {
@@ -50,7 +50,6 @@ export const addUser = (login, password, password2, email) => {
                     console.log(error);
                 })
         }
-    };
 };
 
 export const auth = (login, password) => {

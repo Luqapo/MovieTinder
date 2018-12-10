@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { withRouter } from 'react-router-dom';
 
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -46,6 +47,10 @@ class NavBar extends React.Component {
     this.setState({ mobileMoreAnchorEl: null });
   };
 
+  handleAddMovie = () => {
+    this.props.history.push('/add-movie');
+  }
+
   render() {
     const { anchorEl, mobileMoreAnchorEl } = this.state;
     const { classes } = this.props;
@@ -81,7 +86,7 @@ class NavBar extends React.Component {
           </IconButton>
           <p>My Favorit</p>
         </MenuItem>
-        <MenuItem>
+        <MenuItem onClick={this.handleAddMovie}>
           <IconButton color="inherit">
               <Add />
           </IconButton>
@@ -115,7 +120,7 @@ class NavBar extends React.Component {
                   <Star />
                 </Badge>
               </IconButton>
-              <IconButton color="inherit">
+              <IconButton color="inherit" onClick={this.handleAddMovie}>
                   <Add />
               </IconButton>
               <IconButton
@@ -145,4 +150,4 @@ NavBar.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(NavBar);
+export default withStyles(styles)(withRouter(NavBar));
