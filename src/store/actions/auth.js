@@ -7,7 +7,7 @@ export const authStart = () => {
     };
 };
 
-export const authSucces = (login, token) => {
+export const authSucces = (login) => {
     return {
         type: actionTypes.AUTH_SUCCES,
         login: login

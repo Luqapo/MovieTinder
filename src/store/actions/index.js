@@ -1,3 +1,7 @@
 export {
     auth
-} from './auth.js'
+} from './auth';
+
+export {
+    movies
+} from './movies'

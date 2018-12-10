@@ -22,7 +22,7 @@ const AddMovie = props => {
            })
           .then( resp => {
             if (resp.ok){
-              return resp.json();
+              return resp;
             } else {
                 async function getErorrMessage(){
                   const errorMessage = await resp.json();
