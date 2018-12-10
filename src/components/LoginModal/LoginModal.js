@@ -24,7 +24,7 @@ const LoginModal = props => {
 
 const mapStateToProps = state => {
     return {
-        userIn: state.userLogged
+        userIn: state.root.userLogged
     };
 };
 

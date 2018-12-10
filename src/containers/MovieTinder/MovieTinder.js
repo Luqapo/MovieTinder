@@ -38,6 +38,26 @@ class MovieTinder extends Component{
     }
 
     handleAccept = () => {
+        
+        fetch(`${url}/api/movie/status`, {
+            method : 'POST',
+            body : JSON.stringify({
+                title: this.state.movieToRender.title,
+                user: this.props.userIn,
+                status: 'Accepted'
+            }),
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        })
+        .then( resp => resp.json())
+        .then(response => {
+            this.props.updateCount((this.props.favoriteCount + 1));
+        })
+        .catch(error => {
+            console.log(error);
+        })
+
         let newCounter = this.state.counter + 1;
         let newMovie = this.state.movies[newCounter];
         this.setState({
@@ -78,13 +98,15 @@ MovieTinder.propTypes = {
 
 const mapStateToProps = state => {
     return {
-        userIn: state.userLogged
+        userIn: state.root.userLogged,
+        favoriteCount: state.root.favoriteCount
     };
 };
 
 const mapDispatchToProps = dispatch => {
         return {
-            setCount: () => dispatch ( actions.setFavoriteCount ())
+            setCount: () => dispatch ( actions.setFavoriteCount() ),
+            updateCount: (newCount) => dispatch ( actions.addFavorite(newCount) )
         }
 };
 

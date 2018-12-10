@@ -14,11 +14,11 @@ const Movie = props => {
             </h1>
             <div className={classes.movie}>
                 <img src={props.movie.imageURL} 
-                     alt="Star Wars" 
+                     alt={props.movie.title} 
                      className={classes.img}/>
-                <h5>
+                <p>
                     {props.movie.summary} 
-                </h5>
+                </p>
             </div>
         </div>
     )

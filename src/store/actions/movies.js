@@ -1,9 +1,10 @@
 import * as actionTypes from './actionTypes';
 import { url } from '../../config/consfig';
 
-export const addFavrite = () => {
+export const addFavorite = (newCount) => {
     return {
-        type: actionTypes.ADD_FAVORITE
+        type: actionTypes.ADD_FAVORITE,
+        newCount: newCount
     }
 }
 
@@ -16,13 +17,13 @@ export const setFavorite = (count) => {
 
 export const setFavoriteCount = () => {
     return dispatch => {
-        fetch(`${url}/api/favorites`)
+        fetch(`${url}/api/movie/status`)
             .then( resp => resp.json())
-            .then(function (response) {
+            .then(response => {
                     dispatch(setFavorite(response.length));
                 })
-            .catch(function (error){
+            .catch( error => {
                     alert(error);
-                })
+            })
     };
 }

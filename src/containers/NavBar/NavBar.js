@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
 
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -80,7 +81,7 @@ class NavBar extends React.Component {
       >
         <MenuItem>
           <IconButton color="inherit">
-            <Badge badgeContent={4} color="secondary">
+            <Badge badgeContent={this.props.favoriteCount} color="secondary">
               <Star />
             </Badge>
           </IconButton>
@@ -116,7 +117,7 @@ class NavBar extends React.Component {
                                                          : null}
             <div className={classes.sectionDesktop}>
               <IconButton color="inherit">
-                <Badge badgeContent={0} color="secondary">
+                <Badge badgeContent={this.props.favoriteCount} color="secondary">
                   <Star />
                 </Badge>
               </IconButton>
@@ -150,4 +151,11 @@ NavBar.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(withRouter(NavBar));
+const mapStateToProps = state => {
+  return {
+      userIn: state.root.userLogged,
+      favoriteCount: state.root.favoriteCount
+  };
+};
+
+export default connect(mapStateToProps)(withStyles(styles)(withRouter(NavBar)));

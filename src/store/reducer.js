@@ -24,6 +24,11 @@ const reducer = (state = initialSate,action) => {
             return {
                 ...state,
                 favoriteCount: action.count
+            };
+        case actionTypes.ADD_FAVORITE:
+            return {
+                ...state,
+                favoriteCount: action.newCount
             }
     }
     return state;
