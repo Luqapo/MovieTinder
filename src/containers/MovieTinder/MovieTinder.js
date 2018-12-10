@@ -24,12 +24,10 @@ class MovieTinder extends Component{
         fetch(`${url}/api/movie`)
             .then(resp => resp.json())
             .then(resp => {
-                console.log(resp);
                 this.props.setCount();
                 this.setState({
                     movies: resp,
-                    movieToRender: resp[0],
-                    counter: 0
+                    movieToRender: resp[0]
                 })
             })
             .catch(err => {
@@ -37,33 +35,47 @@ class MovieTinder extends Component{
             })
     }
 
-    handleAccept = () => {
-        
-        fetch(`${url}/api/movie/status`, {
-            method : 'POST',
-            body : JSON.stringify({
-                title: this.state.movieToRender.title,
-                user: this.props.userIn,
-                status: 'Accepted'
-            }),
-            headers: {
-                'Content-Type': 'application/json',
-            },
-        })
-        .then( resp => resp.json())
-        .then(response => {
-            this.props.updateCount((this.props.favoriteCount + 1));
-        })
-        .catch(error => {
-            console.log(error);
-        })
+    handleReject = () => {
+        this.fetchMovieStstus('Rejected');
+        this.changeMovie();
+    }
 
+    handleAccept = () => {   
+        this.fetchMovieStstus('Accepted');
+        this.props.updateCount(this.props.favoriteCount + 1);
+        this.changeMovie();
+    }
+
+    changeMovie = () => {
         let newCounter = this.state.counter + 1;
         let newMovie = this.state.movies[newCounter];
         this.setState({
             movieToRender: newMovie,
             counter: newCounter
         })
+    }
+
+    fetchMovieStstus = (status) => {
+        if(this.props.userIn){
+            fetch(`${url}/api/movie/status`, {
+                method : 'POST',
+                body : JSON.stringify({
+                    title: this.state.movieToRender.title,
+                    user: this.props.userIn,
+                    status: status
+                }),
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            })
+            .then( resp => resp.json())
+            .then(resp => {
+                console.log(resp);
+            })
+            .catch(error => {
+                alert(error);
+            })
+        }
     }
 
     render(){
@@ -81,7 +93,10 @@ class MovieTinder extends Component{
                             <Done className={classes.leftIcon} />
                             Accept
                         </Button>
-                        <Button variant="outlined" color="secondary" className={classes.button}>
+                        <Button variant="outlined" 
+                                color="secondary" 
+                                className={classes.button}
+                                onClick={this.handleReject}>
                             Reject
                             <Clear className={classes.rightIcon} />
                         </Button>

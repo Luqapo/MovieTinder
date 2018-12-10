@@ -44,7 +44,6 @@ router.route('/movie/status')
         MovieStatus.find({status: 'Accepted'}, (err, moviesStatus) => {
             if(err) res.status(500).send({ message: 'Error on the server' });
             if(!moviesStatus) res.status(404).send({ message: 'No movies status found.' });
-            console.log(moviesStatus)
             res.status(200).json(moviesStatus);
         })
     })
