@@ -14,7 +14,6 @@ const reducer = (state = initialSate,action) => {
                 ...state,
                 userLogged: action.login
             };
-
         case actionTypes.LOG_OFF:
             return {
                 ...state,

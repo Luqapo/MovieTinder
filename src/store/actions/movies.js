@@ -19,11 +19,11 @@ export const setFavoriteCount = () => {
     return dispatch => {
         fetch(`${url}/api/movie/status`)
             .then( resp => resp.json())
-            .then(response => {
-                    dispatch(setFavorite(response.length));
-                })
+            .then(resp => {
+                dispatch(setFavorite(resp.length));
+            })
             .catch( error => {
-                    alert(error);
+                alert(error);
             })
     };
 }

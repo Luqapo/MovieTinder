@@ -9,9 +9,8 @@ import Clear from '@material-ui/icons/Clear';
 import Done from '@material-ui/icons/Done';
 
 import Movie from '../../components/Movie/Movie';
-import { styles } from './MovieTinderStyles';
+import { styles } from '../MovieTinder/MovieTinderStyles';
 import { url } from '../../config/consfig';
-import * as actions from '../../store/actions/movies.js';
 
 class MovieTinder extends Component{
     state = {
@@ -21,10 +20,9 @@ class MovieTinder extends Component{
     }
 
     componentDidMount(){
-        fetch(`${url}/api/movie/${this.props.userIn}`)
+        fetch(`${url}/api/movie`)
             .then(resp => resp.json())
             .then(resp => {
-                this.props.setCount();
                 this.setState({
                     movies: resp,
                     movieToRender: resp[0]
@@ -36,13 +34,10 @@ class MovieTinder extends Component{
     }
 
     handleReject = () => {
-        this.fetchMovieStstus('Rejected');
         this.changeMovie();
     }
 
     handleAccept = () => {   
-        this.fetchMovieStstus('Accepted');
-        this.props.updateCount(this.props.favoriteCount + 1);
         this.changeMovie();
     }
 
@@ -55,29 +50,6 @@ class MovieTinder extends Component{
         })
     }
 
-    fetchMovieStstus = (status) => {
-        if(this.props.userIn){
-            fetch(`${url}/api/movie/status`, {
-                method : 'POST',
-                body : JSON.stringify({
-                    title: this.state.movieToRender.title,
-                    user: this.props.userIn,
-                    status: status
-                }),
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-            })
-            .then( resp => resp.json())
-            .then(resp => {
-                console.log(resp);
-            })
-            .catch(error => {
-                alert(error);
-            })
-        }
-    }
-
     render(){
         const { classes } = this.props;
 
@@ -85,7 +57,7 @@ class MovieTinder extends Component{
             <Paper className={classes.root} elevation={4}>
                 <div className={classes.movie}>
                     {this.state.movieToRender ? <Movie movie={this.state.movieToRender}/> 
-                                : <h3>No more movies in database.</h3>}
+                            : <h3>No more movies in database.</h3>}
                     <div className={classes.buttons}>
                         <Button variant="outlined" 
                                 color="primary" 
@@ -112,18 +84,4 @@ MovieTinder.propTypes = {
     classes: PropTypes.object.isRequired,
 };
 
-const mapStateToProps = state => {
-    return {
-        userIn: state.root.userLogged,
-        favoriteCount: state.root.favoriteCount
-    };
-};
-
-const mapDispatchToProps = dispatch => {
-        return {
-            setCount: () => dispatch ( actions.setFavoriteCount() ),
-            updateCount: (newCount) => dispatch ( actions.addFavorite(newCount) )
-        }
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(MovieTinder));
+export default withStyles(styles)(MovieTinder);

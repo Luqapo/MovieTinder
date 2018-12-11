@@ -111,10 +111,10 @@ class NavBar extends React.Component {
             </Typography>
             <div className={classes.grow} />
             { this.state.schowLog ? <LoginModal 
-                                                        handleLogOff={this.handleLogOff} 
-                                                        show={this.state.schowLog} 
-                                                        showHandle={this.handleLogin}/>
-                                                         : null}
+                                        handleLogOff={this.handleLogOff} 
+                                        show={this.state.schowLog} 
+                                        showHandle={this.handleLogin}/>
+                                        : null }
             <div className={classes.sectionDesktop}>
               <IconButton color="inherit">
                 <Badge badgeContent={this.props.favoriteCount} color="secondary">

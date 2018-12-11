@@ -48,4 +48,33 @@ router.route('/movie/status')
         })
     })
 
+router.route('/movie/:user')
+    .get((req, res) => {
+        let allMovies;
+        let userMovies;
+        const moviesToSend = [];
+
+        Movie.find((err, movies) => {
+            if(err) res.status(500).send({ message: 'Error on the server' });
+            if(!movies) res.status(404).send({ message: 'No movies found.' });
+            allMovies = movies;
+            
+            MovieStatus.find({user: req.params.user}, (err, moviesStatus) => {
+                if(err) res.status(500).send({ message: 'Error on the server' });
+                if(!moviesStatus) res.status(404).send({ message: 'No movies status found.' });
+                userMovies = moviesStatus;
+                
+                allMovies.forEach(movie => {
+                    let movieWithStatus;
+                    movieWithStatus = userMovies.find( userMovie => userMovie.title === movie.title);
+                    if(!movieWithStatus){
+                        moviesToSend.push(movie);
+                    }
+                });
+                
+                res.status(200).json(moviesToSend);
+            });
+        });   
+    });
+
 module.exports = router;
