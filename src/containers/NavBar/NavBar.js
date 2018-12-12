@@ -18,6 +18,7 @@ import MoreIcon from '@material-ui/icons/MoreVert';
 
 import { styles } from './NavBarStyles';
 import LoginModal from '../../components/LoginModal/LoginModal';
+import * as actions from '../../store/actions/auth';
 
 class NavBar extends React.Component {
   state = {
@@ -29,7 +30,13 @@ class NavBar extends React.Component {
   handleLogin = () => {
     this.setState({ schowLog: this.state.schowLog ? false : true });
     this.handleMenuClose();
-}
+  }
+
+  handleLogOff = () => {
+    this.props.logOff();
+    this.setState({ schowLog: false });
+    this.handleMenuClose();
+  }
 
   handleProfileMenuOpen = event => {
     this.setState({ anchorEl: event.currentTarget });
@@ -66,7 +73,8 @@ class NavBar extends React.Component {
         open={isMenuOpen}
         onClose={this.handleMenuClose}
       >
-        <MenuItem onClick={this.handleLogin}>Login</MenuItem>
+        { this.props.userIn ? <MenuItem onClick={this.handleLogOff}>LogOff</MenuItem> : 
+                              <MenuItem onClick={this.handleLogin}>Login</MenuItem> }
         <MenuItem onClick={this.handleMenuClose}>My account</MenuItem>
       </Menu>
     );
@@ -158,4 +166,10 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps)(withStyles(styles)(withRouter(NavBar)));
+const mapDispatchToProps = dispatch => {
+  return {
+      logOff: () => dispatch ( actions.logOff())
+  }
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(withRouter(NavBar)));

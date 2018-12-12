@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import { withStyles } from '@material-ui/core/styles';
@@ -10,7 +9,7 @@ import Done from '@material-ui/icons/Done';
 
 import Movie from '../../components/Movie/Movie';
 import { styles } from '../MovieTinder/MovieTinderStyles';
-import { url } from '../../config/consfig';
+import { url } from '../../config/config';
 
 class MovieTinder extends Component{
     state = {

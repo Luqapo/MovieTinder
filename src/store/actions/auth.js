@@ -1,5 +1,5 @@
 import * as actionTypes from './actionTypes';
-import { url } from '../../config/consfig';
+import { url } from '../../config/config';
 
 export const authStart = () => {
     return {

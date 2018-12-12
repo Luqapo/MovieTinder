@@ -5,8 +5,6 @@ const initialSate = {
     favoriteCount: 0
 }
 
-
-
 const reducer = (state = initialSate,action) => {
     switch ( action.type ) {
         case actionTypes.AUTH_SUCCES:
@@ -17,7 +15,8 @@ const reducer = (state = initialSate,action) => {
         case actionTypes.LOG_OFF:
             return {
                 ...state,
-                userLogged: ''
+                userLogged: '',
+                favoriteCount: 0
             };
         case actionTypes.SET_FAVORITE:
             return {

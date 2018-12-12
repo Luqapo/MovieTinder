@@ -10,7 +10,7 @@ import Done from '@material-ui/icons/Done';
 
 import Movie from '../../components/Movie/Movie';
 import { styles } from './MovieTinderStyles';
-import { url } from '../../config/consfig';
+import { url } from '../../config/config';
 import * as actions from '../../store/actions/movies.js';
 
 class MovieTinder extends Component{

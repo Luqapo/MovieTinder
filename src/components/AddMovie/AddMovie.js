@@ -4,11 +4,12 @@ import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 import AddMovieForm from './AddMovieForm/AddMovieForm';
+import { url } from '../../config/config';
 
 const AddMovie = props => {
 
     const handleMovieSubmit = values => {
-        fetch('http://localhost:5000/api/movie', {
+        fetch(`${url}/api/movie`, {
             method : 'POST',
             body : JSON.stringify({
               title: values.title,
