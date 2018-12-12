@@ -1,6 +1,7 @@
 export const styles = theme => ({
     root: {
       width: '100%',
+      marginBottom: '60px',
     },
     grow: {
       flexGrow: 1,
@@ -18,10 +19,12 @@ export const styles = theme => ({
       display: 'none',
       [theme.breakpoints.up('sm')]: {
         display: 'flex',
+        marginRight: 10,
       },
     },
     sectionMobile: {
       display: 'flex',
+      marginRight: 10,
       [theme.breakpoints.up('sm')]: {
         display: 'none',
       },

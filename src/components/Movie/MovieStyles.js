@@ -8,6 +8,7 @@ export const styles = theme => ({
         flexDirection: 'column',
     },
     img: {
-        width: '100%'
+        width: '100%',
+        maxHeight: '50vh',
     }
   });

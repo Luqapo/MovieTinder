@@ -1,25 +1,23 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Route, Switch } from 'react-router-dom';
+import { Route, Switch, withRouter } from 'react-router-dom';
 import './App.css';
 
 import NavBar from './containers/NavBar/NavBar';
 import MovieTinder from './containers/MovieTinder/MovieTinder';
 import MovieTinderGuest from './containers/MovieTinderGuest/MovieTinderGuest';
 import AddMovie from './components/AddMovie/AddMovie';
+import FavoriteMovies from './containers/FavoriteMovies/FavoriteMovies';
 
 class App extends Component {
   render() {
-    let MovieTinderContainer = MovieTinderGuest;
-    if(this.props.userIn) {
-      MovieTinderContainer = MovieTinder;
-    } 
     return (
       <div className="App">
         <NavBar />
         <Switch>
           <Route path="/add-movie" component={AddMovie} />
-          <Route path="/" component={MovieTinderContainer} />
+          <Route path="/favorite" component={FavoriteMovies} />
+          <Route path="/" component={ this.props.userIn ? MovieTinder : MovieTinderGuest } />
         </Switch>
       </div>
     );
@@ -32,4 +30,4 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(mapStateToProps)(App);
+export default withRouter(connect(mapStateToProps)(App));

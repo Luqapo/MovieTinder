@@ -7,6 +7,7 @@ import Paper from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
 import Clear from '@material-ui/icons/Clear';
 import Done from '@material-ui/icons/Done';
+import Typography from '@material-ui/core/Typography';
 
 import Movie from '../../components/Movie/Movie';
 import { styles } from './MovieTinderStyles';
@@ -83,9 +84,12 @@ class MovieTinder extends Component{
 
         return (
             <Paper className={classes.root} elevation={4}>
-                <div className={classes.movie}>
+                <div className={classes.movie} onTouchMove={this.handleReject}>
                     {this.state.movieToRender ? <Movie movie={this.state.movieToRender}/> 
-                                : <h3>No more movies in database.</h3>}
+                                : <Typography variant="h3">
+                                    No more movies in database.
+                                </Typography>
+                                    }
                     <div className={classes.buttons}>
                         <Button variant="outlined" 
                                 color="primary" 

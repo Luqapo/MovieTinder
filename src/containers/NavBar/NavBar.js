@@ -15,6 +15,7 @@ import AccountCircle from '@material-ui/icons/AccountCircle';
 import Star from '@material-ui/icons/Star';
 import Add from '@material-ui/icons/Add';
 import MoreIcon from '@material-ui/icons/MoreVert';
+import Button from '@material-ui/core/Button';
 
 import { styles } from './NavBarStyles';
 import LoginModal from '../../components/LoginModal/LoginModal';
@@ -57,6 +58,17 @@ class NavBar extends React.Component {
 
   handleAddMovie = () => {
     this.props.history.push('/add-movie');
+    this.handleMenuClose();
+  }
+
+  handleFavorite = () => {
+    this.props.history.push('/favorite');
+    this.handleMenuClose();
+  }
+
+  handleMovieTinder = () => {
+    this.props.history.push('/');
+    this.handleMenuClose();
   }
 
   render() {
@@ -75,7 +87,6 @@ class NavBar extends React.Component {
       >
         { this.props.userIn ? <MenuItem onClick={this.handleLogOff}>LogOff</MenuItem> : 
                               <MenuItem onClick={this.handleLogin}>Login</MenuItem> }
-        <MenuItem onClick={this.handleMenuClose}>My account</MenuItem>
       </Menu>
     );
 
@@ -88,7 +99,7 @@ class NavBar extends React.Component {
         onClose={this.handleMobileMenuClose}
       >
         <MenuItem>
-          <IconButton color="inherit">
+          <IconButton color="inherit" onClick={this.handleFavorite}>
             <Badge badgeContent={this.props.favoriteCount} color="secondary">
               <Star />
             </Badge>
@@ -112,10 +123,12 @@ class NavBar extends React.Component {
 
     return (
       <div className={classes.root}>
-        <AppBar position="static">
+        <AppBar position="fixed">
           <Toolbar>
             <Typography className={classes.title} variant="h6" color="inherit" noWrap>
-              Movie Tinder
+              <Button onClick={this.handleMovieTinder} color="inherit">
+                Movie Tinder
+              </Button>
             </Typography>
             <div className={classes.grow} />
             { this.state.schowLog ? <LoginModal 
@@ -124,7 +137,7 @@ class NavBar extends React.Component {
                                         showHandle={this.handleLogin}/>
                                         : null }
             <div className={classes.sectionDesktop}>
-              <IconButton color="inherit">
+              <IconButton color="inherit" onClick={this.handleFavorite}>
                 <Badge badgeContent={this.props.favoriteCount} color="secondary">
                   <Star />
                 </Badge>
