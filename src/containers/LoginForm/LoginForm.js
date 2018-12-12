@@ -43,7 +43,7 @@ class LoginForm extends Component{
                 addUser: false
             });
         } else {
-            alert('Password don`t mastch!');
+            alert('Password don`t match!');
         }
     }
 
