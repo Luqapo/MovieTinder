@@ -25,7 +25,7 @@ class NavBar extends React.Component {
   state = {
     anchorEl: null,
     mobileMoreAnchorEl: null,
-    schowLog: false
+    schowLog: false,
   };
 
   handleLogin = () => {

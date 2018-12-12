@@ -15,7 +15,6 @@ class LoginForm extends Component{
         email: '',
         addUser: false,
         login: '',
-        error: ''
     }
 
     handleChange = (e) => {
@@ -38,11 +37,13 @@ class LoginForm extends Component{
         event.preventDefault();
         if (!this.state.addUser){
         this.props.onAuth(this.state.login, this.state.password);
-        } else {
+        } else if(this.state.password === this.state.password2) {
             this.props.addUser(this.state.login, this.state.password, this.state.email);
             this.setState({
                 addUser: false
             });
+        } else {
+            alert('Password don`t mastch!');
         }
     }
 

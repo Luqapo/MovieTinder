@@ -14,13 +14,6 @@ export const authSucces = (login) => {
     };
 };
 
-export const authFail = (error) => {
-    return {
-        type: actionTypes.AUTH_FAIL,
-        error: error
-    };
-};
-
 export const logOff = () => {
     return {
         type: actionTypes.LOG_OFF
@@ -42,12 +35,11 @@ export const addUser = (login, password, email) => {
                     'Content-Type': 'application/json',
                 },
             })
-            .then( resp => resp.json())
-            .then(function (response) {
+            .then( () => {
                     dispatch(authSucces(login));
                 })
-            .catch(function (error) {
-                    console.log(error);
+            .catch(error => {
+                    alert(error);
                 })
         }
 };
@@ -65,13 +57,11 @@ export const auth = (login, password) => {
                 'Content-Type': 'application/json',
             },
         })
-        .then( resp => resp.json())
-        .then(function (response) {
+        .then( () => {
                 dispatch(authSucces(login));
             })
-        .catch(function (error){
-                console.log(error);
-                dispatch(authFail(error));
+        .catch(error => {
+                alert(error);
             })
     };
 };

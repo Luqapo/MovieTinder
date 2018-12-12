@@ -36,7 +36,7 @@ router.route('/movie/status')
     .post((req, res) => {
         MovieStatus.create(req.body, (err, movieSatus) => {
             if(err) res.status(500).send({ message: 'There was a problem saving movie status.' })
-                    res.status(200).send({ message: 'Movie status saved.' });
+            res.status(200).send({ message: 'Movie status saved.' });
         })
     })
 

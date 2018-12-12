@@ -32,6 +32,7 @@ const AddMovie = props => {
                 getErorrMessage();
             }
           })
+          .then(resp => resp.json())
           .then( resp => {
             alert(resp.message);
             })
