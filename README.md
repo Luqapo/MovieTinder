@@ -19,4 +19,4 @@ Builds the app for production to the `build` folder.<br>
 ### `node ./back-end/server.js`
 
 Satarts server on port 5000. <br>
-Go http://localhost:5000/ to lunch app.
+Go to http://localhost:5000/ to lunch app.
