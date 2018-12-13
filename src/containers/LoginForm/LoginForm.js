@@ -82,10 +82,10 @@ class LoginForm extends Component{
                 </form>
                 {this.state.addUser ? null : 
                     <div className={classes.buttonCenter}>
-                        <Button onClick={this.handleAddUser}>Załóż konto</Button>
+                        <Button onClick={this.handleAddUser}>Register</Button>
                     </div>}
                 <div className={classes.buttonCenter}>
-                    <Button onClick={this.props.showHandle}>Anuluj</Button>
+                    <Button onClick={this.props.showHandle}>Cancel</Button>
                 </div>
             </div>
         )

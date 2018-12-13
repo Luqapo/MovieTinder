@@ -21,3 +21,5 @@ app.use('/api', MovieController);
 app.listen(PORT, () => {
     console.log(`Server listen at port ${PORT}`);
 })
+
+module.exports = app;
