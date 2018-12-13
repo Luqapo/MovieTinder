@@ -9,9 +9,9 @@ export const Movie = props => {
     const { classes } = props;
     return (
         <div className={classes.root}>
-            <h1>{props.movie.title}
-                <span>{`(${props.movie.rating})`}</span>
-            </h1>
+            <h3>{props.movie.title}
+                <span>{` (${props.movie.rating})`}</span>
+            </h3>
             <div className={classes.movie}>
                 <img src={props.movie.imageURL} 
                      alt={props.movie.title} 
