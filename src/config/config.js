@@ -1,1 +1,1 @@
-export const url = 'https://movietinde.herokuapp.com/';
+export const url = 'https://movietinde.herokuapp.com';
