@@ -82,7 +82,7 @@ class MovieTinder extends Component{
             <Paper className={classes.root} elevation={4}>
                 <div className={classes.movie} onTouchMove={this.handleReject}>
                     {this.state.movieToRender ? <Movie movie={this.state.movieToRender}/> 
-                                : <Typography variant="h3">
+                                : <Typography variant="h3" className={classes.marginTop}>
                                     No more movies in database.
                                 </Typography>
                                     }

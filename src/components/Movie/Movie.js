@@ -5,7 +5,7 @@ import { withStyles } from '@material-ui/core/styles';
 
 import { styles } from './MovieStyles';
 
-const Movie = props => {
+export const Movie = props => {
     const { classes } = props;
     return (
         <div className={classes.root}>
@@ -27,6 +27,7 @@ const Movie = props => {
 
 Movie.propTypes = {
     classes: PropTypes.object.isRequired,
+    movie: PropTypes.object.isRequired,
   };
 
 export default withStyles(styles)(Movie);

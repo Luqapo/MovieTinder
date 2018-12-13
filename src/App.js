@@ -9,7 +9,7 @@ import MovieTinderGuest from './containers/MovieTinderGuest/MovieTinderGuest';
 import AddMovie from './components/AddMovie/AddMovie';
 import FavoriteMovies from './containers/FavoriteMovies/FavoriteMovies';
 
-class App extends Component {
+export class App extends Component {
   render() {
     return (
       <div className="App">

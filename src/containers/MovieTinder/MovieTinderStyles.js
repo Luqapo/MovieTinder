@@ -35,4 +35,7 @@ export const styles = theme => ({
     rightIcon: {
         marginLeft: theme.spacing.unit,
     },
+    marginTop: {
+        marginTop: '100px',
+    }
   });

@@ -36,7 +36,10 @@ class FavoriteMovies extends Component {
         return (
             <div className={classes.root}>
                 {this.props.userIn ? null : 
-                    <Typography variant="h2">LogIn to use all futures</Typography>}
+                    <Typography variant="h2" 
+                                className={classes.marginTop}>
+                        LogIn to use all futures.
+                    </Typography>}
                 {this.state.favoriteMovies ? this.state.favoriteMovies.map(favoriteMovie => (
                     <ExpansionPanel>
                         <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>

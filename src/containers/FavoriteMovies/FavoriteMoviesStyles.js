@@ -20,4 +20,7 @@ export const styles = theme => ({
     column: {
       flexBasis: '50%',
     },
+    marginTop: {
+      marginTop: '100px',
+    }
   });
