@@ -16,7 +16,9 @@ class MovieTinder extends Component{
     state = {
         movies: null,
         movieToRender: null,
-        counter: 0
+        counter: 0,
+        touchStart: null,
+        touchCurrent: null
     }
 
     componentDidMount(){
@@ -50,12 +52,33 @@ class MovieTinder extends Component{
         })
     }
 
+    handleTouchStart = (event) => {
+        this.setState({
+            touchStart: event.targetTouches[0].clientX
+        })
+    }
+
+    hanldeTouchMove = (event) => {
+        this.setState({
+            touchCurrent: event.targetTouches[0].clientX
+        })
+    }
+    handleTouchEnd = () => {
+        let moveDistance = this.state.touchStart - this.state.touchCurrent;
+        if(moveDistance > 100){
+            this.changeMovie();
+        }
+    }
+
     render(){
         const { classes } = this.props;
 
         return (
             <Paper className={classes.root} elevation={4}>
-                <div className={classes.movie} onTouchEnd={this.handleReject}>
+                <div className={classes.movie} 
+                        onTouchStart={this.handleTouchStart}
+                        onTouchMove={this.hanldeTouchMove}
+                        onTouchEnd={this.handleTouchEnd}>
                     {this.state.movieToRender ? <Movie movie={this.state.movieToRender}/> 
                             : <Typography variant="h3">
                                 No more movies in database.

@@ -18,7 +18,9 @@ class MovieTinder extends Component{
     state = {
         movies: null,
         movieToRender: null,
-        counter: 0
+        counter: 0,
+        touchStart: null,
+        touchCurrent: null
     }
 
     componentDidMount(){
@@ -54,6 +56,24 @@ class MovieTinder extends Component{
             movieToRender: newMovie,
             counter: newCounter
         })
+    }
+
+    handleTouchStart = (event) => {
+        this.setState({
+            touchStart: event.targetTouches[0].clientX
+        })
+    }
+
+    hanldeTouchMove = (event) => {
+        this.setState({
+            touchCurrent: event.targetTouches[0].clientX
+        })
+    }
+    handleTouchEnd = () => {
+        let moveDistance = this.state.touchStart - this.state.touchCurrent;
+        if(moveDistance > 100){
+            this.handleReject();
+        }
     }
 
     fetchMovieStstus = (status) => {
