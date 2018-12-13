@@ -19,7 +19,6 @@ export const styles = theme => ({
       display: 'none',
       [theme.breakpoints.up('sm')]: {
         display: 'flex',
-        marginRight: 10,
       },
     },
     sectionMobile: {
