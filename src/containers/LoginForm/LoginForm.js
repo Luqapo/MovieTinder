@@ -77,15 +77,21 @@ class LoginForm extends Component{
                            required/>
                     {this.state.addUser ? addAcount : null}
                     <div className={classes.buttonCenter}>
-                        <Button type="submit">Submit</Button>
+                        <Button type="submit"
+                                variant="outlined" 
+                                color="primary">Submit</Button>
                     </div>
                 </form>
                 {this.state.addUser ? null : 
                     <div className={classes.buttonCenter}>
-                        <Button onClick={this.handleAddUser}>Register</Button>
+                        <Button onClick={this.handleAddUser}
+                                variant="outlined" 
+                                color="primary">Register</Button>
                     </div>}
                 <div className={classes.buttonCenter}>
-                    <Button onClick={this.props.showHandle}>Cancel</Button>
+                    <Button onClick={this.props.showHandle}
+                            variant="outlined" 
+                            color="primary">Cancel</Button>
                 </div>
             </div>
         )
