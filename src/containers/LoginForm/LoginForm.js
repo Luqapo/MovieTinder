@@ -77,7 +77,7 @@ class LoginForm extends Component{
                            required/>
                     {this.state.addUser ? addAcount : null}
                     <div className={classes.buttonCenter}>
-                        <Button type="submit">Wyślij</Button>
+                        <Button type="submit">Submit</Button>
                     </div>
                 </form>
                 {this.state.addUser ? null : 
