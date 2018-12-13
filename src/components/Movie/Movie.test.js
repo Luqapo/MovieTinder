@@ -44,8 +44,8 @@ describe('<Movie />', () => {
         expect(wrapper.find('div')).toHaveLength(2);
     });
 
-    it('Schould rednder 1 h1', () => {
-        expect(wrapper.find('h1')).toHaveLength(1);
+    it('Schould rednder 1 h3', () => {
+        expect(wrapper.find('h3')).toHaveLength(1);
     });
 
     it('Schould rednder 1 img', () => {
