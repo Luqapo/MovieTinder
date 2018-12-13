@@ -6,17 +6,8 @@ https://movietinde.herokuapp.com/
 
 Technology: React, Redux, Redux Form, Node.js, Express.js, MongoDB, Material Ui
 
-In the project directory, you can run:
+## Installation:
 
-### `npm test`
+Clone repository, use 'npm install' command and then 'npm run build' to create app file, then type 'node ./back_end/server.js' to run server ang go to 'http://localhost:5000/' to lunch app.
 
-Launches the test runner in the interactive watch mode.<br>
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.<br>
-
-### `node ./back-end/server.js`
-
-Satarts server on port 5000. <br>
-Go to http://localhost:5000/ to lunch app.
+For front-end test use 'npm test', for back-end test go to back_end directory and use command 'npm i' to install mocha and run 'npm test' there.
