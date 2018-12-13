@@ -22,6 +22,5 @@ export const styles = theme => ({
       display: 'flex',
       flexDirection: 'column',
       justifyContent: 'center',
-      margin: theme.spacing.unit,
     }
   });
