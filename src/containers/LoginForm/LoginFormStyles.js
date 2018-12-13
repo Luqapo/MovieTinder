@@ -16,6 +16,7 @@ export const styles = theme => ({
         width: '100%',
         display: 'flex',
         justifyContent: 'center',
+        marginTop: '5px',
     },
     formCenter: {
       width: '100%',
