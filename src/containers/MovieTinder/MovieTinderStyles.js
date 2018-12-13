@@ -3,7 +3,6 @@ export const styles = theme => ({
         width: '100%',
         minHeight: '85vh',
         margin: '0',
-        ...theme.mixins.gutters(),
         paddingTop: theme.spacing.unit * 2,
         paddingBottom: theme.spacing.unit * 2,
         [theme.breakpoints.up('sm')]: {
