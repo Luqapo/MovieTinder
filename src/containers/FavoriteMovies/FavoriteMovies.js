@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import { withStyles } from '@material-ui/core/styles';
@@ -59,6 +60,10 @@ class FavoriteMovies extends Component {
         )
     }
 }
+
+FavoriteMovies.propTypes = {
+    classes: PropTypes.object.isRequired,
+  };
 
 const mapStateToProps = state => {
     return {
