@@ -42,13 +42,10 @@ router.post('/login', (req, res) => {
         if (!user) return res.status(404).send('No user found.');
 
         const passwordIsValid = bcrypt.compareSync(req.body.password, user.password);
-        if (!passwordIsValid) return res.status(401).send({
-            auth: false
-        });
+        if (!passwordIsValid) return res.status(401).send({ auth: false });
 
-        res.status(200).send({
-            auth: true
-        });
+        req.session.auth = true
+        res.status(200).send({ auth: true });
     });
 });
 

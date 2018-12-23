@@ -1,6 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const path = require('path');
+const session = require('express-session');
 
 const AuthController = require('./auth/AuthController');
 const MovieController = require('./movie/MovieController');
@@ -14,6 +15,7 @@ mongoose.connect(uri, { useNewUrlParser: true }, () => {
 });
 
 app.use(express.static(path.join(__dirname, '..', 'build')));
+app.use(session({ secret: 'movie-tinder-session', resave: false, saveUninitialized: false}));
 
 app.use('/api/auth', AuthController);
 app.use('/api', MovieController);
