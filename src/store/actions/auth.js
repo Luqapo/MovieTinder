@@ -65,3 +65,21 @@ export const auth = (login, password) => {
             })
     };
 };
+
+export const userLogOff = () => {
+    return dispatch => {
+        dispatch( authStart());
+        fetch(`${url}/api/auth/logoff`, {
+            method : 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        })
+        .then( () => {
+                dispatch(logOff());
+            })
+        .catch(error => {
+                alert(error);
+            })
+    };
+};

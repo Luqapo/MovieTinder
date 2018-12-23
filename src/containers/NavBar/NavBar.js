@@ -181,7 +181,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-      logOff: () => dispatch ( actions.logOff())
+      logOff: () => dispatch ( actions.userLogOff())
   }
 };
 

@@ -44,9 +44,14 @@ router.post('/login', (req, res) => {
         const passwordIsValid = bcrypt.compareSync(req.body.password, user.password);
         if (!passwordIsValid) return res.status(401).send({ auth: false });
 
-        req.session.auth = true
+        req.session.user = user;
         res.status(200).send({ auth: true });
     });
 });
+
+router.post('/logoff', (req, res) => {
+    req.session.user = null;
+    res.status(200).send({ auth: false });
+})
 
 module.exports = router;
