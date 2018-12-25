@@ -15,9 +15,9 @@ export const setFavorite = (count) => {
     }
 }
 
-export const setFavoriteCount = () => {
+export const setFavoriteCount = (user) => {
     return dispatch => {
-        fetch(`${url}/api/movie/status`)
+        fetch(`${url}/api//movie/favorite/${user}`)
             .then( resp => resp.json())
             .then(resp => {
                 dispatch(setFavorite(resp.length));

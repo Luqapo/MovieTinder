@@ -45,14 +45,14 @@ class FavoriteMovies extends Component {
                     <ExpansionPanel>
                         <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
                             <div className={classes.column}>
-                                <Typography className={classes.heading}>{favoriteMovie.title}</Typography>
+                                <Typography className={classes.heading}>{favoriteMovie.movieId.title}</Typography>
                             </div>
                             <div className={classes.column}>
-                                <Typography className={classes.secondaryHeading}>{`Rating ${favoriteMovie.rating}`}</Typography>
+                                <Typography className={classes.secondaryHeading}>{`Rating ${favoriteMovie.movieId.rating}`}</Typography>
                             </div>
                         </ExpansionPanelSummary>
                         <ExpansionPanelDetails className={classes.details}>
-                            <Typography >{favoriteMovie.summary}</Typography>
+                            <Typography >{favoriteMovie.movieId.summary}</Typography>
                         </ExpansionPanelDetails>
                         <Divider />
                     </ExpansionPanel>)) : null}

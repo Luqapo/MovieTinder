@@ -27,7 +27,7 @@ class MovieTinder extends Component{
         fetch(`${url}/api/movie/${this.props.userIn}`)
             .then(resp => resp.json())
             .then(resp => {
-                this.props.setCount();
+                this.props.setCount(this.props.userIn);
                 this.setState({
                     movies: resp,
                     movieToRender: resp[0]
@@ -143,7 +143,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
         return {
-            setCount: () => dispatch ( actions.setFavoriteCount() ),
+            setCount: (user) => dispatch ( actions.setFavoriteCount(user) ),
             updateCount: (newCount) => dispatch ( actions.addFavorite(newCount) )
         }
 };

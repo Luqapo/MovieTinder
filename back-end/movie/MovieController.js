@@ -85,30 +85,16 @@ router.route('/movie/:user')
 
 router.route('/movie/favorite/:user')
     .get((req, res) => {
-        const myFavoriteMoviesList = [];
-        let allMovies;
-        let userFavoritesMovies;
-        MovieStatus.find({ user: req.params.user, status: 'Accepted' }, (err, moviesList) => {
-            if(err) res.status(500).send({ message: 'Error on the server' });
-            if(!moviesList) res.status(404).send({ message: 'No movies status found.' });
-            userFavoritesMovies = moviesList;
-
-            Movie.find((err, movies) => {
-                if(err) res.status(500).send({ message: 'Error on the server' });
-                if(!movies) res.status(404).send({ message: 'No movies found.' });
-                allMovies = movies;
-
-                allMovies.forEach(movie => {
-                    let favoriteMovie;
-                    favoriteMovie = userFavoritesMovies.find( userMovie => userMovie.title === movie.title);
-                    if(favoriteMovie){
-                        myFavoriteMoviesList.push(movie);
-                    }
-                })
-                
-                res.status(200).json(myFavoriteMoviesList);
+        MovieStatus.find({ userId: req.session.user._id, status: 'Accepted' })
+            .populate('movieId')
+            .then( moviesList => {
+                if(!moviesList) res.status(404).send({ message: 'No movies status found.' });
+        
+                res.status(200).json(moviesList);
             })
-        })
+            .catch( err => {
+                res.status(500).send({ message: 'Error on the server' });
+            })
     })
 
 module.exports = router;
