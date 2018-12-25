@@ -65,14 +65,15 @@ router.route('/movie/:user')
             if(!movies) res.status(404).send({ message: 'No movies found.' });
             allMovies = movies;
             
-            MovieStatus.find({user: req.params.user}, (err, moviesStatus) => {
+            MovieStatus.find({userId: req.session.user._id}, (err, moviesStatus) => {
                 if(err) res.status(500).send({ message: 'Error on the server' });
                 if(!moviesStatus) res.status(404).send({ message: 'No movies status found.' });
                 userMovies = moviesStatus;
                 
                 allMovies.forEach(movie => {
                     let movieWithStatus;
-                    movieWithStatus = userMovies.find( userMovie => userMovie.title === movie.title);
+                    movieWithStatus = userMovies.find( userMovie => String(userMovie.movieId) === String(movie._id));
+
                     if(!movieWithStatus){
                         moviesToSend.push(movie);
                     }
