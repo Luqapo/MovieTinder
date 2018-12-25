@@ -35,7 +35,12 @@ router.route('/movie')
 router.route('/movie/status')
     .post((req, res) => {
         console.log(req.session.user.login);
-        MovieStatus.create(req.body, (err, movieSatus) => {
+        const statusToAdd = {
+            movieId: req.body.movieId,
+            userId: req.session.user._id,
+            status: req.body.status
+        }
+        MovieStatus.create(statusToAdd, (err, movieSatus) => {
             if(err) res.status(500).send({ message: 'There was a problem saving movie status.' })
             res.status(200).send({ message: 'Movie status saved.' });
         })

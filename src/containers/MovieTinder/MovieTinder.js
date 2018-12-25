@@ -81,8 +81,7 @@ class MovieTinder extends Component{
             fetch(`${url}/api/movie/status`, {
                 method : 'POST',
                 body : JSON.stringify({
-                    title: this.state.movieToRender.title,
-                    user: this.props.userIn,
+                    movieId: this.state.movieToRender._id,
                     status: status
                 }),
                 headers: {

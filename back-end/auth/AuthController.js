@@ -21,6 +21,8 @@ router.post('/register', (req, res) => {
 
             User.create(validatedUser, (err, user) => {
                 if (err) res.status(500).send('There was problem registering the user.')
+
+                req.session.user = user;
                 res.status(200).send({ auth: true });
             });
         })
