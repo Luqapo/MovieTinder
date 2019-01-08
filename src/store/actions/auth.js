@@ -39,7 +39,14 @@ export const addUser = (login, password, email) => {
             .then( resp => resp.json())
             .then( resp => {
                     dispatch(authSucces(login, resp.token));
-                })
+                    localStorage.setItem('token', resp.token);
+                    localStorage.setItem('userId', resp.userId);
+                    const remainingMilliseconds = 60 * 60 * 1000;
+                    const expiryDate = new Date(
+                        new Date().getTime() + remainingMilliseconds
+                    );
+                    localStorage.setItem('expiryDate', expiryDate.toISOString());
+                    })
             .catch(error => {
                     alert(error);
                 })
@@ -62,6 +69,13 @@ export const auth = (login, password) => {
         .then( resp => resp.json())
         .then( resp => {
                 dispatch(authSucces(login, resp.token));
+                localStorage.setItem('token', resp.token);
+                localStorage.setItem('userId', resp.userId);
+                const remainingMilliseconds = 60 * 60 * 1000;
+                const expiryDate = new Date(
+                    new Date().getTime() + remainingMilliseconds
+                );
+                localStorage.setItem('expiryDate', expiryDate.toISOString());
             })
         .catch(error => {
                 alert(error);
@@ -80,6 +94,9 @@ export const userLogOff = () => {
         })
         .then( () => {
                 dispatch(logOff());
+                localStorage.removeItem('token');
+                localStorage.removeItem('expiryDate');
+                localStorage.removeItem('userId');
             })
         .catch(error => {
                 alert(error);

@@ -24,7 +24,7 @@ router.post('/register', (req, res) => {
                 if (err) res.status(500).send('There was problem registering the user.')
 
                 const token = jwt.sign({ login: validatedUser.login }, 'movietindersecret', { expiresIn: '1h' });
-                res.status(200).send({ auth: true, token: token });
+                res.status(200).send({ auth: true, token: token, userId: user._id });
             });
         })
         .catch(validationError => {
@@ -48,7 +48,7 @@ router.post('/login', (req, res) => {
         if (!passwordIsValid) return res.status(401).send({ auth: false });
 
         const token = jwt.sign({ login: req.body.login }, 'movietindersecret', { expiresIn: '1h' });
-        res.status(200).send({ auth: true, token: token });
+        res.status(200).send({ auth: true, token: token, userId: user._id });
     });
 });
 
