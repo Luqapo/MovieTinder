@@ -7,10 +7,11 @@ export const authStart = () => {
     };
 };
 
-export const authSucces = (login) => {
+export const authSucces = (login, token) => {
     return {
         type: actionTypes.AUTH_SUCCES,
-        login: login
+        login: login,
+        token: token
     };
 };
 
@@ -35,8 +36,9 @@ export const addUser = (login, password, email) => {
                     'Content-Type': 'application/json',
                 },
             })
-            .then( () => {
-                    dispatch(authSucces(login));
+            .then( resp => resp.json())
+            .then( resp => {
+                    dispatch(authSucces(login, resp.token));
                 })
             .catch(error => {
                     alert(error);
@@ -57,8 +59,9 @@ export const auth = (login, password) => {
                 'Content-Type': 'application/json',
             },
         })
-        .then( () => {
-                dispatch(authSucces(login));
+        .then( resp => resp.json())
+        .then( resp => {
+                dispatch(authSucces(login, resp.token));
             })
         .catch(error => {
                 alert(error);

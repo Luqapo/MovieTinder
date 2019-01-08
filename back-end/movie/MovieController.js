@@ -37,7 +37,7 @@ router.route('/movie/status')
         console.log(req.session.user.login);
         const statusToAdd = {
             movieId: req.body.movieId,
-            userId: req.session.user._id,
+            userId: req.body.user._id,
             status: req.body.status
         }
         MovieStatus.create(statusToAdd, (err, movieSatus) => {
@@ -65,7 +65,7 @@ router.route('/movie/:user')
             if(!movies) res.status(404).send({ message: 'No movies found.' });
             allMovies = movies;
             
-            MovieStatus.find({userId: req.session.user._id}, (err, moviesStatus) => {
+            MovieStatus.find({}, (err, moviesStatus) => {
                 if(err) res.status(500).send({ message: 'Error on the server' });
                 if(!moviesStatus) res.status(404).send({ message: 'No movies status found.' });
                 userMovies = moviesStatus;
@@ -86,7 +86,7 @@ router.route('/movie/:user')
 
 router.route('/movie/favorite/:user')
     .get((req, res) => {
-        MovieStatus.find({ userId: req.session.user._id, status: 'Accepted' })
+        MovieStatus.find({ status: 'Accepted' })
             .populate('movieId')
             .then( moviesList => {
                 if(!moviesList) res.status(404).send({ message: 'No movies status found.' });

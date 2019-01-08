@@ -1,6 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
 
 const User = require('../models/User');
 const CreateUserSchema = require('./crateUserSchema');
@@ -22,8 +23,8 @@ router.post('/register', (req, res) => {
             User.create(validatedUser, (err, user) => {
                 if (err) res.status(500).send('There was problem registering the user.')
 
-                req.session.user = user;
-                res.status(200).send({ auth: true });
+                const token = jwt.sign({ login: validatedUser.login }, 'movietindersecret', { expiresIn: '1h' });
+                res.status(200).send({ auth: true, token: token });
             });
         })
         .catch(validationError => {
@@ -46,13 +47,12 @@ router.post('/login', (req, res) => {
         const passwordIsValid = bcrypt.compareSync(req.body.password, user.password);
         if (!passwordIsValid) return res.status(401).send({ auth: false });
 
-        req.session.user = user;
-        res.status(200).send({ auth: true });
+        const token = jwt.sign({ login: req.body.login }, 'movietindersecret', { expiresIn: '1h' });
+        res.status(200).send({ auth: true, token: token });
     });
 });
 
 router.post('/logoff', (req, res) => {
-    req.session.user = null;
     res.status(200).send({ auth: false });
 })
 
