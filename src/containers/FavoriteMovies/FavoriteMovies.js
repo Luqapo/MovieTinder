@@ -21,7 +21,11 @@ class FavoriteMovies extends Component {
 
     componentDidMount() {
         if(this.props.userIn){
-        fetch(`${url}/api/movie/favorite/${this.props.userIn}`)
+        fetch(`${url}/api/movie/favorite/${this.props.userIn}`,{
+            headers: {
+                'Authorization': 'Bearer ' + this.props.userToken
+            }
+        })
             .then(resp => resp.json())
             .then(resp => {
                 this.setState({
@@ -67,7 +71,8 @@ FavoriteMovies.propTypes = {
 
 const mapStateToProps = state => {
     return {
-        userIn: state.root.userLogged
+        userIn: state.root.userLogged,
+        userToken: state.root.token,
     };
   };
 

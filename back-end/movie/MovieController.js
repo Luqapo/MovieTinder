@@ -4,6 +4,7 @@ const bodyParser = require('body-parser');
 const Movie = require('../models/Movie');
 const CrateMovieSchema = require('./createMovieSchema');
 const MovieStatus = require('../models/MovieStatus');
+const isAuth = require('../middelware/is-auth');
 
 const router = express.Router();
 router.use(bodyParser.urlencoded({ extended: false }));
@@ -14,7 +15,7 @@ router.route('/movie')
         CrateMovieSchema.validate(req.body, {abortEarly: false})
             .then(validatedMovie => {
                 Movie.create(validatedMovie, (err, movie) => {
-                    if(err) res.status(500).send({ message: 'There was a problem crating movie.' })
+                    if(err) return res.status(500).send({ message: 'There was a problem crating movie.' })
                     res.status(200).send({ message: 'Movie created' });
                 });
             })
@@ -26,48 +27,46 @@ router.route('/movie')
     })
     .get((req, res) => {
         Movie.find((err, movies) => {
-            if(err) res.status(500).send({ message: 'Error on the server' });
-            if(!movies) res.status(404).send({ message: 'No movies found.' });
+            if(err) return res.status(500).send({ message: 'Error on the server' });
+            if(!movies) return res.status(404).send({ message: 'No movies found.' });
             res.status(200).json(movies);
         })
     })
 
 router.route('/movie/status')
     .post((req, res) => {
-        console.log(req.session.user.login);
         const statusToAdd = {
             movieId: req.body.movieId,
             userId: req.body.user._id,
             status: req.body.status
         }
         MovieStatus.create(statusToAdd, (err, movieSatus) => {
-            if(err) res.status(500).send({ message: 'There was a problem saving movie status.' })
+            if(err) return res.status(500).send({ message: 'There was a problem saving movie status.' })
             res.status(200).send({ message: 'Movie status saved.' });
         })
     })
 
     .get((req, res) => {
         MovieStatus.find({status: 'Accepted'}, (err, moviesStatus) => {
-            if(err) res.status(500).send({ message: 'Error on the server' });
-            if(!moviesStatus) res.status(404).send({ message: 'No movies status found.' });
+            if(err) return res.status(500).send({ message: 'Error on the server' });
+            if(!moviesStatus) return res.status(404).send({ message: 'No movies status found.' });
             res.status(200).json(moviesStatus);
         })
     })
 
-router.route('/movie/:user')
-    .get((req, res) => {
+router.get('/movie/:user', isAuth, (req, res) => {
         let allMovies;
         let userMovies;
         const moviesToSend = [];
 
         Movie.find((err, movies) => {
-            if(err) res.status(500).send({ message: 'Error on the server' });
-            if(!movies) res.status(404).send({ message: 'No movies found.' });
+            if(err) return res.status(500).send({ message: 'Error on the server' });
+            if(!movies) return res.status(404).send({ message: 'No movies found.' });
             allMovies = movies;
             
-            MovieStatus.find({}, (err, moviesStatus) => {
-                if(err) res.status(500).send({ message: 'Error on the server' });
-                if(!moviesStatus) res.status(404).send({ message: 'No movies status found.' });
+            MovieStatus.find({userId: req.userId}, (err, moviesStatus) => {
+                if(err) return res.status(500).send({ message: 'Error on the server' });
+                if(!moviesStatus) return res.status(404).send({ message: 'No movies status found.' });
                 userMovies = moviesStatus;
                 
                 allMovies.forEach(movie => {
@@ -85,11 +84,11 @@ router.route('/movie/:user')
     });
 
 router.route('/movie/favorite/:user')
-    .get((req, res) => {
-        MovieStatus.find({ status: 'Accepted' })
+    .get(isAuth, (req, res) => {
+        MovieStatus.find({ userId: req.userId, status: 'Accepted' })
             .populate('movieId')
             .then( moviesList => {
-                if(!moviesList) res.status(404).send({ message: 'No movies status found.' });
+                if(!moviesList) return res.status(404).send({ message: 'No movies status found.' });
         
                 res.status(200).json(moviesList);
             })

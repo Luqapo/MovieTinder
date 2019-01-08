@@ -15,9 +15,13 @@ export const setFavorite = (count) => {
     }
 }
 
-export const setFavoriteCount = (user) => {
+export const setFavoriteCount = (user, userToken) => {
     return dispatch => {
-        fetch(`${url}/api//movie/favorite/${user}`)
+        fetch(`${url}/api//movie/favorite/${user}`,{
+            headers: {
+                'Authorization': 'Bearer ' + userToken
+            }
+        })
             .then( resp => resp.json())
             .then(resp => {
                 dispatch(setFavorite(resp.length));

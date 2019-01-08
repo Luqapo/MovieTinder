@@ -24,10 +24,14 @@ class MovieTinder extends Component{
     }
 
     componentDidMount(){
-        fetch(`${url}/api/movie/${this.props.userIn}`)
+        fetch(`${url}/api/movie/${this.props.userIn}`,{
+            headers: {
+                'Authorization': 'Bearer ' + this.props.userToken
+            }
+        })
             .then(resp => resp.json())
             .then(resp => {
-                this.props.setCount(this.props.userIn);
+                this.props.setCount(this.props.userIn, this.props.userToken);
                 this.setState({
                     movies: resp,
                     movieToRender: resp[0]
@@ -137,13 +141,14 @@ MovieTinder.propTypes = {
 const mapStateToProps = state => {
     return {
         userIn: state.root.userLogged,
+        userToken: state.root.token,
         favoriteCount: state.root.favoriteCount
     };
 };
 
 const mapDispatchToProps = dispatch => {
         return {
-            setCount: (user) => dispatch ( actions.setFavoriteCount(user) ),
+            setCount: (user, token) => dispatch ( actions.setFavoriteCount(user, token) ),
             updateCount: (newCount) => dispatch ( actions.addFavorite(newCount) )
         }
 };

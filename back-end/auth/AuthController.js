@@ -23,7 +23,7 @@ router.post('/register', (req, res) => {
             User.create(validatedUser, (err, user) => {
                 if (err) res.status(500).send('There was problem registering the user.')
 
-                const token = jwt.sign({ login: validatedUser.login }, 'movietindersecret', { expiresIn: '1h' });
+                const token = jwt.sign({ login: validatedUser.login, userId: user._id }, 'movietindersecret', { expiresIn: '1h' });
                 res.status(200).send({ auth: true, token: token, userId: user._id });
             });
         })
@@ -47,7 +47,7 @@ router.post('/login', (req, res) => {
         const passwordIsValid = bcrypt.compareSync(req.body.password, user.password);
         if (!passwordIsValid) return res.status(401).send({ auth: false });
 
-        const token = jwt.sign({ login: req.body.login }, 'movietindersecret', { expiresIn: '1h' });
+        const token = jwt.sign({ login: req.body.login, userId: user._id }, 'movietindersecret', { expiresIn: '1h' });
         res.status(200).send({ auth: true, token: token, userId: user._id });
     });
 });
