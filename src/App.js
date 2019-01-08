@@ -9,7 +9,34 @@ import MovieTinderGuest from './containers/MovieTinderGuest/MovieTinderGuest';
 import AddMovie from './components/AddMovie/AddMovie';
 import FavoriteMovies from './containers/FavoriteMovies/FavoriteMovies';
 
+import * as actions from './store/actions/auth';
+
 export class App extends Component {
+
+  componentDidMount() {
+    const token = localStorage.getItem('token');
+    const expiryDate = localStorage.getItem('expiryDate');
+    if (!token || !expiryDate) {
+      return;
+    }
+    if (new Date(expiryDate) <= new Date()) {
+      this.logOff();
+      return;
+    }
+    const userId = localStorage.getItem('userId');
+    const remainingMilliseconds =
+      new Date(expiryDate).getTime() - new Date().getTime();
+    
+      this.props.authStart(userId);
+      this.setAutoLogout(remainingMilliseconds);
+  }
+
+  setAutoLogout = milliseconds => {
+    setTimeout(() => {
+      this.props.logOff();
+    }, milliseconds);
+  };
+
   render() {
     return (
       <div className="App">
@@ -30,4 +57,11 @@ const mapStateToProps = state => {
   };
 };
 
-export default withRouter(connect(mapStateToProps)(App));
+const mapDispatchToProps = dispatch => {
+  return {
+      authStart: (userId) => dispatch ( actions.startAuth ( userId )),
+      logOff: () => dispatch ( actions.logOff())
+  }
+};
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App));
