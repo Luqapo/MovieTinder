@@ -24,7 +24,7 @@ router.post('/register', (req, res) => {
                 if (err) res.status(500).send('There was problem registering the user.')
 
                 const token = jwt.sign({ login: validatedUser.login, userId: user._id }, 'movietindersecret', { expiresIn: '1h' });
-                res.status(200).send({ auth: true, token: token, userId: user._id });
+                res.status(200).send({ auth: true, token: token, userId: user._id, login: user.login });
             });
         })
         .catch(validationError => {
@@ -48,22 +48,12 @@ router.post('/login', (req, res) => {
         if (!passwordIsValid) return res.status(401).send({ auth: false });
 
         const token = jwt.sign({ login: req.body.login, userId: user._id }, 'movietindersecret', { expiresIn: '1h' });
-        res.status(200).send({ auth: true, token: token, userId: user._id });
+        res.status(200).send({ auth: true, token: token, userId: user._id, login: user.login });
     });
 });
 
 router.post('/logoff', (req, res) => {
     res.status(200).send({ auth: false });
-});
-
-router.post('/start', (req, res) => {
-    User.findById( req.body.userId, (err, user) => {
-        if (err) return res.status(500).send('Error on the sever.');
-        if (!user) return res.status(404).send('No user found.');
-
-        const token = jwt.sign({ login: user.login, userId: user._id }, 'movietindersecret', { expiresIn: '1h' });
-        res.status(200).send({ auth: true, token: token, userId: user._id, login: user.login });
-    });
 });
 
 module.exports = router;

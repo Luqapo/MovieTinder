@@ -16,18 +16,18 @@ export class App extends Component {
   componentDidMount() {
     const token = localStorage.getItem('token');
     const expiryDate = localStorage.getItem('expiryDate');
+    const userLogin = localStorage.getItem('login');
     if (!token || !expiryDate) {
       return;
     }
     if (new Date(expiryDate) <= new Date()) {
-      this.logOff();
+      this.props.logOff();
       return;
     }
-    const userId = localStorage.getItem('userId');
     const remainingMilliseconds =
       new Date(expiryDate).getTime() - new Date().getTime();
     
-      this.props.authStart(userId);
+      this.props.authStart(userLogin, token);
       this.setAutoLogout(remainingMilliseconds);
   }
 
@@ -59,7 +59,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-      authStart: (userId) => dispatch ( actions.startAuth ( userId )),
+      authStart: (userLogin, userToken) => dispatch ( actions.authSucces (userLogin, userToken)),
       logOff: () => dispatch ( actions.logOff())
   }
 };

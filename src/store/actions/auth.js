@@ -41,6 +41,7 @@ export const addUser = (login, password, email) => {
                     dispatch(authSucces(login, resp.token));
                     localStorage.setItem('token', resp.token);
                     localStorage.setItem('userId', resp.userId);
+                    localStorage.setItem('login', resp.login);
                     const remainingMilliseconds = 60 * 60 * 1000;
                     const expiryDate = new Date(
                         new Date().getTime() + remainingMilliseconds
@@ -71,6 +72,7 @@ export const auth = (login, password) => {
                 dispatch(authSucces(login, resp.token));
                 localStorage.setItem('token', resp.token);
                 localStorage.setItem('userId', resp.userId);
+                localStorage.setItem('login', resp.login);
                 const remainingMilliseconds = 60 * 60 * 1000;
                 const expiryDate = new Date(
                     new Date().getTime() + remainingMilliseconds
@@ -97,35 +99,7 @@ export const userLogOff = () => {
                 localStorage.removeItem('token');
                 localStorage.removeItem('expiryDate');
                 localStorage.removeItem('userId');
-            })
-        .catch(error => {
-                alert(error);
-            })
-    };
-};
-
-export const startAuth = (userId) => {
-    return dispatch => {
-        dispatch( authStart());
-        fetch(`${url}/api/auth/start`, {
-            method : 'POST',
-            body : JSON.stringify({
-                userId: userId
-            }),
-            headers: {
-                'Content-Type': 'application/json',
-            },
-        })
-        .then( resp => resp.json())
-        .then( resp => {
-                dispatch(authSucces(resp.login, resp.token));
-                localStorage.setItem('token', resp.token);
-                localStorage.setItem('userId', resp.userId);
-                const remainingMilliseconds = 60 * 60 * 1000;
-                const expiryDate = new Date(
-                    new Date().getTime() + remainingMilliseconds
-                );
-                localStorage.setItem('expiryDate', expiryDate.toISOString());
+                localStorage.removeItem('login');
             })
         .catch(error => {
                 alert(error);

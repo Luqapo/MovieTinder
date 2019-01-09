@@ -5,7 +5,7 @@
   "main": "server.js",
   "scripts": {
     "test": "mocha 'apiTest.js'",
-    "start": "node server.js"
+    "start": "nodemon server.js"
   },
   "author": "Luqapo",
   "license": "ISC",
@@ -19,6 +19,7 @@
   },
   "devDependencies": {
     "mocha": "^5.2.0",
+    "nodemon": "^1.18.9",
     "supertest": "^3.3.0"
   }
 }
